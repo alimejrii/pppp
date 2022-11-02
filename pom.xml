@@ -55,11 +55,6 @@
 		</dependency>
 
 	</dependencies>
-	<distributionManagement>
-
-            <url>http://192.168.208.63:8081/repository/maven-releases/</url>
-
-         </distributionManagement>
 
 	<build>
 		<plugins>
