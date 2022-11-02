@@ -55,6 +55,12 @@
 		</dependency>
 
 	</dependencies>
+	  <repositories>
+    <repository>
+      <id>maven-group</id>
+      <url>http://192.168.208.63:8081/repository/maven-group/</url>
+    </repository>
+  </repositories>
 
 	<build>
 		<plugins>
