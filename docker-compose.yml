@@ -14,7 +14,7 @@ services:
   app:
     depends_on:
       - mysqldb
-    image: kranis/achat:latest
+    image: hadilchahba/achat:latest
     restart: on-failure
     ports:
       - 8091:8091
