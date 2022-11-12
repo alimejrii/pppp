@@ -1,31 +1,32 @@
 package tn.esprit.rh.achat.services;
 
-import lombok.extern.slf4j.Slf4j;
+
+import java.util.List;
+import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import tn.esprit.rh.achat.entities.Produit;
 import tn.esprit.rh.achat.entities.Stock;
 import tn.esprit.rh.achat.repositories.CategorieProduitRepository;
 import tn.esprit.rh.achat.repositories.ProduitRepository;
 import tn.esprit.rh.achat.repositories.StockRepository;
-
-import javax.transaction.Transactional;
-import java.util.List;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
 public class ProduitServiceImpl implements IProduitService {
 
 	@Autowired
-	ProduitRepository produitRepository;
+    ProduitRepository produitRepository;
 	@Autowired
-	StockRepository stockRepository;
+    StockRepository stockRepository;
 	@Autowired
-	CategorieProduitRepository categorieProduitRepository;
+    CategorieProduitRepository categorieProduitRepository;
 
 	@Override
 	public List<Produit> retrieveAllProduits() {
-		List<Produit> produits = (List<Produit>) produitRepository.findAll();
+		List<Produit> produits = produitRepository.findAll();
 		for (Produit produit : produits) {
 			log.info(" Produit : " + produit);
 		}
@@ -47,7 +48,10 @@ public class ProduitServiceImpl implements IProduitService {
 
 	@Override
 	public Produit updateProduit(Produit p) {
-		return produitRepository.save(p);
+		produitRepository.save(p);
+		p.setLibelleProduit("aa");
+		return p;
+		
 	}
 
 	@Override
@@ -61,10 +65,19 @@ public class ProduitServiceImpl implements IProduitService {
 	public void assignProduitToStock(Long idProduit, Long idStock) {
 		Produit produit = produitRepository.findById(idProduit).orElse(null);
 		Stock stock = stockRepository.findById(idStock).orElse(null);
-		produit.setStock(stock);
-		produitRepository.save(produit);
-
+		if (produit==(null))
+		{
+			log.info("Error");  
+		}
+		else
+		{
+			produit.setStock(stock);
+			produitRepository.save(produit);
+		
 	}
+		
+
+	}	
 
 
 }

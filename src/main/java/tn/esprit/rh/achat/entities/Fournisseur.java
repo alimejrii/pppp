@@ -1,6 +1,7 @@
 package tn.esprit.rh.achat.entities;
 
 import java.io.Serializable;
+
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -26,6 +27,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Fournisseur implements Serializable {
 
+
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -43,6 +45,7 @@ public class Fournisseur implements Serializable {
     private Set<SecteurActivite> secteurActivites;
     @OneToOne(cascade= CascadeType.ALL,fetch=FetchType.EAGER)
     private DetailFournisseur detailFournisseur;
+    
     
 
 	

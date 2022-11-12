@@ -1,28 +1,30 @@
 package tn.esprit.rh.achat.services;
 
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import tn.esprit.rh.achat.entities.Stock;
-import tn.esprit.rh.achat.repositories.StockRepository;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import tn.esprit.rh.achat.entities.Stock;
+import tn.esprit.rh.achat.repositories.StockRepository;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
 public class StockServiceImpl implements IStockService {
 
 	@Autowired
-	StockRepository stockRepository;
+    StockRepository stockRepository;
 
 
 	@Override
 	public List<Stock> retrieveAllStocks() {
 		// récuperer la date à l'instant t1
 		log.info("In method retrieveAllStocks");
-		List<Stock> stocks = (List<Stock>) stockRepository.findAll();
+		List<Stock> stocks = stockRepository.findAll();
 		for (Stock stock : stocks) {
 			log.info(" Stock : " + stock);
 		}
@@ -72,7 +74,7 @@ public class StockServiceImpl implements IStockService {
 		String msgDate = sdf.format(now);
 		String finalMessage = "";
 		String newLine = System.getProperty("line.separator");
-		List<Stock> stocksEnRouge = (List<Stock>) stockRepository.retrieveStatusStock();
+		List<Stock> stocksEnRouge = stockRepository.retrieveStatusStock();
 		for (int i = 0; i < stocksEnRouge.size(); i++) {
 			finalMessage = newLine + finalMessage + msgDate + newLine + ": le stock "
 					+ stocksEnRouge.get(i).getLibelleStock() + " a une quantité de " + stocksEnRouge.get(i).getQte()
@@ -83,5 +85,57 @@ public class StockServiceImpl implements IStockService {
 		log.info(finalMessage);
 		return finalMessage;
 	}
+
+	
+//////////////////////////////////// deleteStockById/////////////////////////////////////////////////////
+
+	@Override
+		public void deleteStockById(Long stcokid) {
+			log.debug("methode deletestockById ");
+			try {
+				Optional<Stock> st = stockRepository.findById(stcokid);
+				if(st.isPresent()){
+				Stock s = st.get();
+				stockRepository.delete(s);
+				log.debug("deleteStcokById fini avec succes ");
+				}
+				else {
+					log.error("erreur methode deleteStcokById : " );
+				}
+			} catch (Exception e) {
+				log.error("erreur methode deleteStcokById : " +e);
+				
+			}
+
+		}
+
+	@Override
+	public Stock getStockById(Long stockid) {
+			log.debug("methode getStcokById ");
+			try {
+				Stock st= stockRepository.findById(stockid).orElse(null);
+				log.debug("getStockId fini avec succes ");
+				return st;
+			} catch (Exception e) {
+				log.error("erreur methode getStcokById : " +e);
+				return null;
+			}
+		}
+
+	@Override
+	public void UpdateLibelleStock_Id(String libelle, Long ids) {
+		Stock st = stockRepository.findById(ids).orElse(null);
+		if(st!=null){
+		st.setLibelleStock(libelle);
+		stockRepository.save(st);
+		
+		}
+		
+	}
+	
+
+		
+	
+	
 
 }
