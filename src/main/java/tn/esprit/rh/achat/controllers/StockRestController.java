@@ -1,13 +1,16 @@
 package tn.esprit.rh.achat.controllers;
 
 
-import io.swagger.annotations.Api;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
 import tn.esprit.rh.achat.entities.Stock;
 import tn.esprit.rh.achat.services.IStockService;
 
-import java.util.List;
+import io.swagger.annotations.Api;
 
 @RestController
 @Api(tags = "Gestion des stocks")
@@ -16,14 +19,13 @@ import java.util.List;
 public class StockRestController {
 
 	@Autowired
-	IStockService stockService;
+    IStockService stockService;
 
 	// http://localhost:8089/SpringMVC/stock/retrieve-all-stocks
 	@GetMapping("/retrieve-all-stocks")
 	@ResponseBody
 	public List<Stock> getStocks() {
-		List<Stock> list = stockService.retrieveAllStocks();
-		return list;
+		return stockService.retrieveAllStocks();
 	}
 
 	// http://localhost:8089/SpringMVC/stock/retrieve-stock/8
@@ -37,11 +39,9 @@ public class StockRestController {
 	@PostMapping("/add-stock")
 	@ResponseBody
 	public Stock addStock(@RequestBody Stock s) {
-		Stock stock = stockService.addStock(s);
-		return stock;
+		return stockService.addStock(s);
 	}
 
-	// http://localhost:8089/SpringMVC/stock/remove-stock/{stock-id}
 	@DeleteMapping("/remove-stock/{stock-id}")
 	@ResponseBody
 	public void removeStock(@PathVariable("stock-id") Long stockId) {
@@ -55,20 +55,6 @@ public class StockRestController {
 		return stockService.updateStock(stock);
 	}
 
-	/*
-	 * Spring Scheduler : Comparer QteMin tolérée (à ne pa dépasser) avec
-	 * Quantité du stock et afficher sur console la liste des produits inférieur
-	 * au stock La fct schédulé doit obligatoirement etre sans paramètres et
-	 * sans retour (void)
-	 */
-	// http://localhost:8089/SpringMVC/stock/retrieveStatusStock
-	// @Scheduled(fixedRate = 60000)
-	// @Scheduled(fixedDelay = 60000)
-	//@Scheduled(cron = "*/60 * * * * *")
-	//@GetMapping("/retrieveStatusStock")
-//	@ResponseBody
-//	public void retrieveStatusStock() {
-//		stockService.retrieveStatusStock();
-//	}
+
 
 }
