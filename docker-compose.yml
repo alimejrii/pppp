@@ -7,8 +7,6 @@ services:
       - MYSQL_DATABASE=achatdb
     ports:
       - '3306:3306'
-    volumes:
-      - db_vol:/var/lib/mysql:rw
   backend:
     image: mejriali/achat-1.1:5
     ports:
