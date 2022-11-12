@@ -1,4 +1,4 @@
-version: "3.4"
+version: "3"
 services:
   mysqldb:
     image: mysql:latest
@@ -7,11 +7,12 @@ services:
       - MYSQL_DATABASE=achatdb
     ports:
       - '3306:3306'
-  backend:
-    image: mejriali/achat-1.1:5
-    ports:
-      - '8089:8089'
-    restart: on-failure
+ spring_app:
+  image: mejriali/achat-1.1:5
+  container_name: achat
+  restart: on-failure
+  ports:
+   - 8089:8089
     environment :
       -SPRING_DATASOURCE_URL: jdbc:mysql://mysqldb:3306/achatdb?autoReconnect=true&failOverReadOnly=false&maxReconnects=10
       -SPRING_DATASOURCE_USERNAME : root
