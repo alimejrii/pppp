@@ -5,7 +5,7 @@ services:
     image: mysql:8
     restart: always
     ports:
-      - 3308:3306
+      - 3306:3306
     environment:
 
        MYSQL_DATABASE: achat-db
@@ -20,3 +20,5 @@ services:
       - 8089:8089
     restart: always
     container_name: spring_app
+environment:
+      -SPRING_DATASOURCE_URL: jdbc:mysql://mysqldb:3306/achatdb?createDatabaseIfNotExist=true&autoReconnect=true&failOverReadOnly=false&maxReconnects=10
