@@ -13,7 +13,7 @@ services:
   app:
     depends_on:
       - mysqldb
-    image: mejriali/achat-1.1:35
+    image: mejriali/achat-1.1:44
     restart: on-failure
     ports:
       - 8092:8092
