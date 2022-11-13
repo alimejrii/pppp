@@ -1,20 +1,57 @@
-version: "3.4"
+version: '3'
 services:
-  mysqldb:
-    image: mysql:latest
-    environment:
-      - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_DATABASE=achatdb
-    ports:
-      - '3306:3306'
-  backend:
-    image: mejriali/achat-1.1:31
-    ports:
-      - '8089:8089'
-    restart: on-failure
-    environment :
-      -SPRING_DATASOURCE_URL: jdbc:mysql://mysqldb:3306/achatdb?autoReconnect=true&failOverReadOnly=false&maxReconnects=10
-      -SPRING_DATASOURCE_USERNAME : root
+ sonarqube:
+  image: sonarqube:8.9.7-community
+  ports:
+  - "9000:9000"
+  volumes:
+  - 'SonarQube_data:/opt/SonarQube/data'
+  - 'SonarQube_extensions:/opt/SonarQube/extensions'
+  - 'SonarQube_logs:/opt/SonarQube/logs'
+ nexus:
+  image: sonatype/nexus3
+  ports:
+  - "8081:8081"
+  volumes:
+  - 'nexus-data:/nexus-data'
+ mysqldb:
+  image: mysqldb
+  container_name: db
+  restart: always
+  environment:
+   MYSQL_DATABASE: 'achatdb'
+   MYSQL_ROOT_PASSWORD: 'root'
+  ports:
+   - '3306:3306'
+  volumes:
+   - db:/var/lib/mysql
+ phpmyadmin:
+  image: phpmyadmin/phpmyadmin
+  restart: unless-stopped
+  environment:
+   PMA_ARBITRARY: 1
+   PMA_HOST: mysqldb
+  depends_on:
+  - mysql_db
+  ports:
+   - '8068:80'
+ spring_app:
+  image: mejriali/achat-1.1:31
+  container_name: achat
+  restart: on-failure
+  ports:
+   - 8089:8089
+  depends_on:
+   - mysqldb
+  volumes:
+   - achat_cache:/sonar-nexus/achatapp-cache
 
-    depends_on:
-      - mysqldb
+
+
+volumes:
+ SonarQube_data:
+ SonarQube_extensions:
+ SonarQube_logs:
+ nexus-data:
+ db:
+ achat_cache:
