@@ -8,7 +8,7 @@ services:
     ports:
       - '3306:3306'
   backend:
-    image: mejriali/achat-1.1:5
+    image: mejriali/achat-1.1:31
     ports:
       - '8089:8089'
     restart: on-failure
