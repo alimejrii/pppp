@@ -1,7 +1,7 @@
-version: '3'
+version: '3.3'
 services:
- mysqldb:
-  image: mysqldb
+ mysql_db:
+  image: mysql
   container_name: db
   restart: always
   environment:
@@ -16,24 +16,19 @@ services:
   restart: unless-stopped
   environment:
    PMA_ARBITRARY: 1
-   PMA_HOST: mysqldb
+   PMA_HOST: mysql_db
   depends_on:
-  - mysqldb
+  - mysql_db
   ports:
    - '8068:80'
- spring_app:
-  image: mejriali/achat-1.1:31
-  container_name: achat
-  restart: on-failure
-  ports:
-   - 8089:8089
-  depends_on:
-   - mysqldb
-  volumes:
-   - achat_cache:/sonar-nexus/achatapp-cache
-
-
+  spring_app:
+    depends_on:
+      - mysqldb1
+    image: mejriali/achat-1.1
+    ports:
+      - 8089:8089
+    restart: always
+    container_name: spring_app
 
 volumes:
  db:
- achat_cache:
