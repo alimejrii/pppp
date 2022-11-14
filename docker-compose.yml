@@ -3,7 +3,7 @@ version: "2"
 services:
  mysqldb:
    image: mysql
-   restart: unless-stopped
+   restart: always
    environment:
      - MYSQL_DATABASE=tpachato
    ports:
