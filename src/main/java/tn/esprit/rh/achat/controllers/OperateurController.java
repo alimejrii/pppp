@@ -17,7 +17,7 @@ public class OperateurController {
 	@Autowired
 	IOperateurService operateurService;
 	
-	http://localhost:8089/SpringMVC/operateur/retrieve-all-operateurs
+	// http://localhost:8089/SpringMVC/operateur/retrieve-all-operateurs
 	@GetMapping("/retrieve-all-operateurs")
 	@ResponseBody
 	public List<Operateur> getOperateurs() {
