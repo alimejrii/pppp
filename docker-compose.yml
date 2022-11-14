@@ -11,8 +11,6 @@ services:
      - MYSQL_DATABASE=achatdb
      - MYSQL_USER=root
      - MYSQL_PASSWORD=root
-    volumes:
-     - /home/vagrant/mysql/data:/var/lib/mysql
 
   spring_app:
     image: hamza8/achat-1.0:latest
