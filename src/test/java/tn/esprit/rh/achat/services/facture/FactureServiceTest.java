@@ -54,7 +54,7 @@ public class FactureServiceTest {
 	Assertions.assertNotNull(facture);
 	
 	System.out.println(facture); 
-	System.out.println(" Retrieve is working correctly...!!");  
+	System.out.println(" Retrieve facture is working correctly...!!");  
 	
 	}
 	
@@ -69,7 +69,7 @@ public class FactureServiceTest {
 		factureService.addFacture(facture2);
 		verify(factureRepository, times(1)).save(facture2);
 		System.out.println(facture2); 
-		System.out.println(" Create is working correctly...!!");  
+		System.out.println(" Create facture is working correctly...!!");  
 	}
 	
 	
@@ -90,7 +90,8 @@ public class FactureServiceTest {
 		//test
 		List<Facture> factureList = factureService.retrieveAllFactures();
 		assertEquals(3, factureList.size());
-		System.out.println(" Retrieve all is working correctly...!!");  
+		System.out.println("Retrieve all facture is working correctly...!!");  
+		System.out.println("All facture tests are working correctly...!!"); 
 	}
 	
 
