@@ -1,8 +1,8 @@
 package tn.esprit.rh.achat.services;
 
+import java.util.List;
 import tn.esprit.rh.achat.entities.Operateur;
 
-import java.util.List;
 
 
 public interface IOperateurService {
@@ -16,5 +16,9 @@ public interface IOperateurService {
 	Operateur updateOperateur(Operateur o);
 
 	Operateur retrieveOperateur(Long id);
+
+	public void deleteOperateurById(Long id);
+	public Operateur getOperateurById(Long id);
+	public void UpdateNomBy_Id(String nom,Long id);
 
 }
