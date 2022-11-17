@@ -34,9 +34,5 @@ public class Reglement implements Serializable{
 	@ManyToOne
 	@JsonIgnore
 	private Facture facture;
-	public Reglement(float montantPaye, float montantRestant) {
-		super();
-		this.montantPaye = montantPaye;
-		this.montantRestant = montantRestant;
-	}	
+
 }
