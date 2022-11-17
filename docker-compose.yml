@@ -6,6 +6,8 @@ services:
    restart: unless-stopped
    environment:
      - MYSQL_DATABASE=tpachato
+     - MYSQL_ROOT_PASSWORD=root
+     
    ports:
       - "3307:3307"
    volumes:
