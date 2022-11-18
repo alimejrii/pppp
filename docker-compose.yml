@@ -1,5 +1,4 @@
 version: "3"
-
 services:
   mysqldb:
     image: mysql
@@ -9,9 +8,9 @@ services:
      MYSQL_DATABASE: 'achatdb'
      MYSQL_ROOT_PASSWORD: '123456'
     ports:
-      - 3306:3306
+     - 3306:3306
     volumes:
-      - db:/var/lib/mysql
+     - db:/var/lib/mysql
   app:
     depends_on:
      mysqldb
@@ -19,11 +18,9 @@ services:
     container_name: achat_container
     restart: on-failure
     ports:
-      - 8089:8089
+     - 8089:8089
     volumes:
-      - .m2:/root/.m2
-    stdin_open: true
-    tty: true
-
+     - m2:/root/.m2
 volumes:
   db:
+  m2:
